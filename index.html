@@ -4,279 +4,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>شهد ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:'Cairo', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;}
 
 body{
-    background: linear-gradient(135deg,#8b0000,#d1003f);
-    min-height:100vh;
-    overflow-x:hidden;
-    color:white;
-    text-align:center;
+background:#050010;
+color:white;
+overflow-x:hidden;
 }
 
-/* خلفية قلوب متحركة */
-.heart-bg{
-    position:fixed;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:0;
+/* ===== Canvas ===== */
+#space{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+z-index:-3;
 }
 
-.heart-bg span{
-    position:absolute;
-    color:rgba(255,255,255,0.15);
-    font-size:20px;
-    animation:float 10s linear infinite;
+/* ===== إضاءة سينمائية ===== */
+.cinematic-light{
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle at center,rgba(255,0,80,0.25),transparent 60%);
+animation:lightMove 8s infinite alternate ease-in-out;
+z-index:-2;
+}
+@keyframes lightMove{
+0%{transform:translate(-20%,-20%)}
+100%{transform:translate(0%,0%)}
 }
 
-@keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
+/* ===== Parallax Layer ===== */
+.parallax{
+position:fixed;
+width:120%;
+height:120%;
+background:radial-gradient(circle,#ff004c22,#000000);
+z-index:-1;
+transition:transform 0.1s;
 }
 
-/* صفحات */
+/* ===== الصفحة ===== */
 .page{
-    position:relative;
-    z-index:1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    min-height:100vh;
-    padding:20px;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+text-align:center;
 }
 
-/* قلب الباسورد */
+#mainPage{display:none;}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+padding:20px;
+border-radius:20px;
+margin:15px 0;
+max-width:650px;
+width:100%;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* ===== قلب الباسورد ===== */
+.heart-wrapper{position:relative;width:260px;height:230px;}
 .heart{
-    position:relative;
-    width:280px;
-    height:250px;
-    background:#b3002d;
-    transform:rotate(-45deg);
-    animation:pulse 1.5s infinite;
+position:absolute;width:100%;height:100%;
+background:linear-gradient(145deg,#ff1744,#b00020);
+transform:rotate(-45deg);
+animation:pulse 1.5s infinite;
 }
-
 @keyframes pulse{
-    0%{transform:rotate(-45deg) scale(1);}
-    50%{transform:rotate(-45deg) scale(1.05);}
-    100%{transform:rotate(-45deg) scale(1);}
+0%,100%{transform:rotate(-45deg) scale(1);}
+50%{transform:rotate(-45deg) scale(1.1);}
 }
-
-.heart:before,
-.heart:after{
-    content:"";
-    position:absolute;
-    width:280px;
-    height:250px;
-    background:#b3002d;
-    border-radius:50%;
+.heart:before,.heart:after{
+content:"";position:absolute;width:100%;height:100%;
+background:inherit;border-radius:50%;
 }
-
-.heart:before{ top:-140px; left:0; }
-.heart:after{ left:140px; top:0; }
-
+.heart:before{top:-50%;}
+.heart:after{left:50%;}
 .heart-content{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    transform:rotate(45deg);
-    padding:20px;
+position:absolute;width:100%;height:100%;
+transform:rotate(45deg);
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+}
+
+/* ===== الظرف ===== */
+.envelope-wrapper{display:flex;justify-content:center;cursor:pointer;}
+.envelope{
+position:relative;
+width:300px;height:190px;
+background:#ff4d6d;
+border-radius:12px;
+overflow:hidden;
+transition:1s;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* اسم محفور */
+.envelope::after{
+content:"شهد";
+position:absolute;
+bottom:10px;
+right:15px;
+font-weight:900;
+font-size:22px;
+color:rgba(255,255,255,0.3);
+text-shadow:1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.envelope:before{
+content:"";
+position:absolute;
+width:100%;height:100%;
+background:#ff1744;
+clip-path:polygon(0 0,100% 0,50% 60%);
+transform-origin:top;
+transition:1s;
+}
+
+.letter{
+position:absolute;width:90%;height:80%;
+background:white;color:#b00020;
+top:100%;left:5%;
+border-radius:10px;
+padding:15px;font-weight:bold;
+transition:1s;overflow:hidden;
+}
+
+.envelope.open:before{transform:rotateX(180deg);}
+.envelope.open .letter{top:10%;}
+
+/* ===== الصور ===== */
+.photos{
+display:flex;gap:15px;flex-wrap:wrap;justify-content:center;
+}
+.photos img{
+max-width:250px;width:100%;
+border-radius:20px;
+}
+
+/* ===== العداد ===== */
+.counter{
+display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+}
+.time-box{
+background:#ffffff22;padding:10px;border-radius:15px;
+}
+
+/* ===== قلوب الضغط ===== */
+.click-heart{
+position:absolute;font-size:20px;
+animation:explode 1s forwards;
+pointer-events:none;
+}
+@keyframes explode{
+0%{transform:scale(1);opacity:1;}
+100%{transform:translateY(-100px) scale(2);opacity:0;}
 }
 
 input{
-    padding:10px;
-    border:none;
-    border-radius:20px;
-    margin:10px 0;
-    text-align:center;
-    width:80%;
+padding:10px;border:none;border-radius:20px;margin:10px 0;text-align:center;
 }
-
 button{
-    padding:10px 25px;
-    border:none;
-    border-radius:20px;
-    background:white;
-    color:#b3002d;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#ffd6e0;
-}
-
-/* الصفحة الرئيسية */
-#mainPage{ display:none; }
-
-.card{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(10px);
-    padding:20px;
-    border-radius:20px;
-    margin:15px 0;
-    width:100%;
-    max-width:600px;
-}
-
-/* الصور */
-.photos{
-    display:flex;
-    gap:15px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.photos img{
-    width:100%;
-    max-width:250px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.4);
-    transition:0.4s;
-}
-
-.photos img:hover{
-    transform:scale(1.05);
-}
-
-/* العداد */
-.counter{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.time-box{
-    background:#ffffff22;
-    padding:15px;
-    border-radius:15px;
-    min-width:70px;
-}
-
-/* استجابة للموبايل */
-@media(max-width:500px){
-    .heart{
-        width:220px;
-        height:200px;
-    }
-    .heart:before,
-    .heart:after{
-        width:220px;
-        height:200px;
-    }
+padding:8px 20px;border:none;border-radius:20px;
+background:white;color:#b00020;font-weight:bold;cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="heart-bg" id="heartBg"></div>
-
+<canvas id="space"></canvas>
+<div class="cinematic-light"></div>
+<div class="parallax" id="parallax"></div>
 <audio id="bgMusic" src="song.mp3" loop></audio>
 
-<!-- 🔒 صفحة الباسورد -->
+<!-- ===== صفحة الباسورد ===== -->
 <div class="page" id="loginPage">
-    <div class="heart">
-        <div class="heart-content">
-            <h3>💖 شهد 💖</h3>
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="checkPassword()">Unlock 💞</button>
-            <p id="error" style="color:yellow;"></p>
-        </div>
-    </div>
+<div class="heart-wrapper">
+<div class="heart"></div>
+<div class="heart-content">
+<h2>💖 شهد 💖</h2>
+<input type="password" id="password" placeholder="Password">
+<button onclick="checkPassword()">Unlock 💕</button>
+<p id="error" style="color:yellow;"></p>
+</div>
+</div>
 </div>
 
-<!-- 💕 الصفحة الرئيسية -->
+<!-- ===== الصفحة الرئيسية ===== -->
 <div class="page" id="mainPage">
 
-    <h1>💖 شهد يا أجمل حاجة في حياتي 💖</h1>
+<h1>شهد يا أجمل حاجة في حياتي ❤️</h1>
 
-    <div class="card">
-        بحبك من أول يوم شوفتك فيه ❤️  
-        ويا رب نفضل سوا دايماً 💕
-    </div>
+<div class="card">
+<div class="envelope-wrapper" onclick="openEnvelope()">
+<div class="envelope" id="envelope">
+<div class="letter">
+<p id="typeText"></p>
+</div>
+</div>
+</div>
+<p style="margin-top:15px;opacity:0.8;">اضغط على الظرف لفتح الرسالة 💌</p>
+</div>
 
-    <div class="card">
-        <h2>📸 ذكرياتنا</h2>
-        <div class="photos">
-            <img src="photo1.jpg">
-            <img src="photo2.jpg">
-        </div>
-    </div>
+<div class="card">
+<div class="photos">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+</div>
+</div>
 
-    <div class="card">
-        <h2>💘 بقالنا مع بعض 💘</h2>
-        <div class="counter">
-            <div class="time-box"><div id="days">0</div> يوم</div>
-            <div class="time-box"><div id="hours">0</div> ساعة</div>
-            <div class="time-box"><div id="minutes">0</div> دقيقة</div>
-            <div class="time-box"><div id="seconds">0</div> ثانية</div>
-        </div>
-        <p>من 26 / 6 / 2025 ❤️</p>
-    </div>
+<div class="card">
+<div class="counter">
+<div class="time-box"><div id="days"></div> يوم</div>
+<div class="time-box"><div id="hours"></div> ساعة</div>
+<div class="time-box"><div id="minutes"></div> دقيقة</div>
+<div class="time-box"><div id="seconds"></div> ثانية</div>
+</div>
+<p>من 26 / 6 / 2025 ❤️</p>
+</div>
 
 </div>
 
 <script>
 
+/* ===== نجوم + شهب ===== */
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let stars=[];
+for(let i=0;i<200;i++){
+stars.push({x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2});
+}
+
+let meteors=[];
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+});
+
+/* شهب */
+meteors.forEach((m,index)=>{
+ctx.strokeStyle="white";
+ctx.beginPath();
+ctx.moveTo(m.x,m.y);
+ctx.lineTo(m.x-50,m.y+10);
+ctx.stroke();
+m.x+=5;m.y+=2;
+if(m.x>canvas.width||m.y>canvas.height)
+meteors.splice(index,1);
+});
+
+if(Math.random()<0.01){
+meteors.push({x:Math.random()*canvas.width,y:0});
+}
+
+requestAnimationFrame(draw);
+}
+draw();
+
+/* Parallax */
+document.addEventListener("mousemove",e=>{
+let x=(e.clientX/window.innerWidth-0.5)*20;
+let y=(e.clientY/window.innerHeight-0.5)*20;
+parallax.style.transform=`translate(${x}px,${y}px)`;
+});
+
 /* باسورد */
 function checkPassword(){
-    let pass = document.getElementById("password").value;
-    if(pass === "2007"){
-        document.getElementById("loginPage").style.display="none";
-        document.getElementById("mainPage").style.display="flex";
-        document.getElementById("bgMusic").play();
-    }else{
-        document.getElementById("error").innerText="الباسورد غلط 😢";
-    }
+if(password.value==="2007"){
+loginPage.style.display="none";
+mainPage.style.display="flex";
+bgMusic.play();
+}else{error.innerText="الباسورد غلط 😢";}
 }
 
-/* عداد */
-const startDate = new Date("June 26, 2025 00:00:00").getTime();
+/* الظرف */
+let opened=false;
+function openEnvelope(){
+if(opened)return;
+opened=true;
+document.getElementById("envelope").classList.add("open");
+setTimeout(typeWriter,800);
+}
 
-setInterval(function(){
-    const now = new Date().getTime();
-    const distance = now - startDate;
+/* Typewriter */
+const message="بحبك يا شهد من كل قلبي ❤️ ويا رب نفضل سوا العمر كله ✨";
+let i=0;
+function typeWriter(){
+if(i<message.length){
+typeText.innerHTML+=message.charAt(i);
+i++;setTimeout(typeWriter,70);
+}
+}
 
-    document.getElementById("days").innerHTML =
-        Math.floor(distance/(1000*60*60*24));
-    document.getElementById("hours").innerHTML =
-        Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-    document.getElementById("minutes").innerHTML =
-        Math.floor((distance%(1000*60*60))/(1000*60));
-    document.getElementById("seconds").innerHTML =
-        Math.floor((distance%(1000*60))/1000);
+/* العداد */
+const start=new Date("June 26, 2025 00:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let diff=now-start;
+days.innerHTML=Math.floor(diff/(1000*60*60*24));
+hours.innerHTML=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+minutes.innerHTML=Math.floor((diff%(1000*60*60))/(1000*60));
+seconds.innerHTML=Math.floor((diff%(1000*60))/1000);
 },1000);
 
-/* قلوب متحركة */
-function createHearts(){
-    const bg = document.getElementById("heartBg");
-    for(let i=0;i<20;i++){
-        let heart = document.createElement("span");
-        heart.innerHTML="❤️";
-        heart.style.left=Math.random()*100+"%";
-        heart.style.animationDuration=(5+Math.random()*5)+"s";
-        bg.appendChild(heart);
-    }
-}
-createHearts();
+/* قلوب الضغط */
+document.addEventListener("click",e=>{
+let heart=document.createElement("div");
+heart.className="click-heart";
+heart.innerHTML="💖";
+heart.style.left=e.pageX+"px";
+heart.style.top=e.pageY+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),1000);
+});
 
 </script>
 
