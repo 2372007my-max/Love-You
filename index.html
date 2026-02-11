@@ -115,6 +115,7 @@ button{padding:8px 20px;border:none;border-radius:20px;background:white;color:#b
 </div>
 
 <script>
+
 /* ===== نجوم + شهب ===== */
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
@@ -141,24 +142,43 @@ else{error.innerText="الباسورد غلط 😢";}
 let opened=false;
 function openEnvelope(){if(opened)return;opened=true;document.getElementById("envelope").classList.add("open");setTimeout(typeWriter,800);}
 
-/* Typewriter */
-const message=" يا شهد، 
+/* Typewriter - الرسالة الجديدة */
+const message=`يا شهد،
 عارفة إن الكلام ممكن مايعبّرش عن اللي جوايا، بس حبيت أقولك… إنتِ حاجة مختلفة خالص عن أي حد شفته قبل كده. كل مرة بشوفك فيها قلبي بيدق بسرعة، وبحس إن الدنيا كلها بتضحكلي. بحب ضحكتك، وبحس بالراحة وأنا معاكِ، ومفيش يوم بيعدي من غير ما أفكر فيكي.
 إنتِ مش بس جميلة برة… إنتِ جميلة جوه كمان، وكل يوم بكتشف حاجات فيكي بتخليني أحبك أكتر.
-بحبك يا شهد… وبوعدك إني هافضل جنبك مهما حصل. ❤️ ";
+بحبك يا شهد… وبوعدك إني هافضل جنبك مهما حصل. ❤️`;
+
 let i=0;
-function typeWriter(){if(i<message.length){typeText.innerHTML+=message.charAt(i);i++;setTimeout(typeWriter,70);}}
+function typeWriter(){
+  if(i<message.length){
+    typeText.innerHTML+=message.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
+}
 
 /* العداد */
 const start=new Date("June 26, 2025 00:00:00").getTime();
-setInterval(()=>{let now=new Date().getTime();let diff=now-start;
+setInterval(()=>{
+let now=new Date().getTime();
+let diff=now-start;
 days.innerHTML=Math.floor(diff/(1000*60*60*24));
 hours.innerHTML=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
 minutes.innerHTML=Math.floor((diff%(1000*60*60))/(1000*60));
-seconds.innerHTML=Math.floor((diff%(1000*60))/1000);},1000);
+seconds.innerHTML=Math.floor((diff%(1000*60))/1000);
+},1000);
 
 /* قلوب الضغط */
-document.addEventListener("click",e=>{let heart=document.createElement("div");heart.className="click-heart";heart.innerHTML="💖";heart.style.left=e.pageX+"px";heart.style.top=e.pageY+"px";document.body.appendChild(heart);setTimeout(()=>heart.remove(),1000);});
+document.addEventListener("click",e=>{
+let heart=document.createElement("div");
+heart.className="click-heart";
+heart.innerHTML="💖";
+heart.style.left=e.pageX+"px";
+heart.style.top=e.pageY+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),1000);
+});
+
 </script>
 
 </body>
