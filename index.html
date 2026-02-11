@@ -49,7 +49,7 @@ justify-content:center;
 align-items:center;
 }
 
-/* القلب */
+/* القلب ثابت واحترافي */
 .heart-container{
 position:relative;
 width:320px;
@@ -61,11 +61,11 @@ position:absolute;
 width:100%;
 height:100%;
 background:linear-gradient(145deg,#ff1744,#b00020);
-transform:rotate(-45deg);
 border-radius:30px;
 box-shadow:0 25px 60px rgba(0,0,0,0.5);
 }
 
+/* نصف دائرة فوق القلب */
 .heart:before,.heart:after{
 content:"";
 position:absolute;
@@ -94,7 +94,6 @@ transform:rotate(45deg);
 position:absolute;
 width:100%;
 height:100%;
-transform:rotate(45deg);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -112,6 +111,7 @@ background:rgba(255,255,255,0.15);
 color:white;
 outline:none;
 margin:10px 0;
+font-size:16px;
 }
 
 button{
@@ -124,19 +124,23 @@ color:#b00020;
 font-weight:bold;
 cursor:pointer;
 transition:0.3s;
+font-size:16px;
 }
 
 button:active{
 transform:scale(0.95);
 }
 
-.shake{
-animation:shake 0.4s;
+#loginPage h2{
+margin-bottom:5px;
+font-size:24px;
+font-weight:900;
 }
-@keyframes shake{
-0%,100%{transform:rotate(45deg) translateX(0)}
-25%{transform:rotate(45deg) translateX(-5px)}
-75%{transform:rotate(45deg) translateX(5px)}
+
+#loginPage p{
+margin-bottom:10px;
+opacity:0.7;
+font-size:16px;
 }
 
 /* ================= الصفحة الرئيسية ================= */
@@ -181,7 +185,7 @@ transform:translate(-50%,-50%);
 font-size:22px;
 font-weight:900;
 opacity:0.4;
-letter-spacing:3px;
+letter-spacing:2px;
 }
 
 .letter{
