@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:linear-gradient(135deg,#8b0000,#c4002f);
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+.container{
+padding:20px;
+display:none;
+animation:fade 1s ease;
+max-width:900px;
+margin:auto;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.card{
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:20px;
+margin:20px auto;
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+button{
+background:#ff4d6d;
+border:none;
+padding:12px 25px;
+color:white;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+margin-top:15px;
+}
+
+input{
+padding:12px;
+border-radius:20px;
+border:none;
+width:90%;
+max-width:300px;
+margin-top:10px;
+text-align:center;
+}
+
+img, video{
+width:100%;
+border-radius:15px;
+margin-top:10px;
+}
+
+.counter{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:15px;
+flex-wrap:wrap;
+}
+
+.time-box{
+background:rgba(255,255,255,0.15);
+padding:12px;
+border-radius:15px;
+min-width:70px;
+font-size:18px;
+}
+
+.heart{
+position:fixed;
+top:-10px;
+color:pink;
+animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh)}
+}
+
+/* تحسين العرض على الشاشات الكبيرة */
+@media (min-width:768px){
+.card{
+max-width:600px;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- صفحة الباسورد -->
+<div id="login" class="card" style="margin-top:100px;">
+<h2>💖 Our Love Story 💖</h2>
+<input type="password" id="pass" placeholder="Enter Password">
+<br>
+<button onclick="check()">Unlock 💕</button>
+<p id="error"></p>
+</div>
+
+<!-- الموقع -->
+<div class="container" id="site">
+
+<div class="card">
+<h3>🎵 أغنيتنا</h3>
+<audio controls style="width:100%">
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="card">
+<h3>📸 صورنا</h3>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+</div>
+
+<div class="card">
+<h3>🎥 فيديو</h3>
+<video controls>
+<source src="video.mp4" type="video/mp4">
+</video>
+</div>
+
+<div class="card">
+<h3>⏳ بقالنا سوا</h3>
+<div class="counter">
+<div class="time-box"><span id="days"></span><br>يوم</div>
+<div class="time-box"><span id="hours"></span><br>ساعة</div>
+<div class="time-box"><span id="minutes"></span><br>دقيقة</div>
+<div class="time-box"><span id="seconds"></span><br>ثانية</div>
+</div>
+<p>💞 من 26 / 6 / 2025 💞</p>
+</div>
+
+<div class="card">
+<h3>💌 رسالة ليكي يا شهد</h3>
+<p>
+يا أجمل حاجة حصلتلي في الدنيا دي ❤️  
+من أول يوم شوفتك فيه وأنا حبيتك من كل قلبي ✨  
+كل عيد حب واحنا دايمًا سوا  
+كل لحظة بقضيها معاكي بتبقى ذكرى محفورة في قلبي  
+مش هيوصف حبي ليكي كلام  
+تعالي نكمل مع بعض ونعيش كل لحظة سوا ⭐  
+بحبك يا شهد 💕
+</p>
+</div>
+
+</div>
+
+<script>
+
+function check(){
+let password=document.getElementById("pass").value;
+if(password==="2007"){
+document.getElementById("login").style.display="none";
+document.getElementById("site").style.display="block";
+}else{
+document.getElementById("error").innerHTML="❌ الباسورد غلط";
+}
+}
+
+// العداد من 26 يونيو 2025
+let countDate = new Date(2025,5,26,0,0,0).getTime();
+
+setInterval(function(){
+let now=new Date().getTime();
+let gap=now-countDate;
+
+let days=Math.floor(gap/(1000*60*60*24));
+let hours=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+let minutes=Math.floor((gap%(1000*60*60))/(1000*60));
+let seconds=Math.floor((gap%(1000*60))/1000);
+
+document.getElementById("days").innerHTML=days;
+document.getElementById("hours").innerHTML=hours;
+document.getElementById("minutes").innerHTML=minutes;
+document.getElementById("seconds").innerHTML=seconds;
+},1000);
+
+// قلوب متحركة
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*20+10+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+
+</script>
+
+</body>
+</html>
