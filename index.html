@@ -142,7 +142,10 @@ let opened=false;
 function openEnvelope(){if(opened)return;opened=true;document.getElementById("envelope").classList.add("open");setTimeout(typeWriter,800);}
 
 /* Typewriter */
-const message="بحبك يا شهد من كل قلبي ❤️ ويا رب نفضل سوا العمر كله ✨";
+const message=" يا شهد، 
+عارفة إن الكلام ممكن مايعبّرش عن اللي جوايا، بس حبيت أقولك… إنتِ حاجة مختلفة خالص عن أي حد شفته قبل كده. كل مرة بشوفك فيها قلبي بيدق بسرعة، وبحس إن الدنيا كلها بتضحكلي. بحب ضحكتك، وبحس بالراحة وأنا معاكِ، ومفيش يوم بيعدي من غير ما أفكر فيكي.
+إنتِ مش بس جميلة برة… إنتِ جميلة جوه كمان، وكل يوم بكتشف حاجات فيكي بتخليني أحبك أكتر.
+بحبك يا شهد… وبوعدك إني هافضل جنبك مهما حصل. ❤️ ";
 let i=0;
 function typeWriter(){if(i<message.length){typeText.innerHTML+=message.charAt(i);i++;setTimeout(typeWriter,70);}}
 
