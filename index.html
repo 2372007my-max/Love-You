@@ -3,309 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love ❤️</title>
+<title>شهد ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 *{
-  box-sizing:border-box;
-  user-select:none;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Cairo', sans-serif;
 }
 
 body{
-  font-family:'Cairo',sans-serif;
-  background:linear-gradient(135deg,#8b0000,#c4002f);
-  color:white;
-  text-align:center;
-  overflow:hidden;
-  min-height:100vh;
-  position:relative;
+    background: linear-gradient(135deg,#8b0000,#d1003f);
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+    text-align:center;
 }
 
-/* الصفحات */
+/* خلفية قلوب متحركة */
+.heart-bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+.heart-bg span{
+    position:absolute;
+    color:rgba(255,255,255,0.15);
+    font-size:20px;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+/* صفحات */
 .page{
-  position:absolute;
-  top:0; left:0; right:0;
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-  opacity:0;
-  transform:translateX(50px);
-  transition:all .6s ease;
-  z-index:1;
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    min-height:100vh;
+    padding:20px;
 }
 
-.page.active{
-  opacity:1;
-  transform:translateX(0);
+/* قلب الباسورد */
+.heart{
+    position:relative;
+    width:280px;
+    height:250px;
+    background:#b3002d;
+    transform:rotate(-45deg);
+    animation:pulse 1.5s infinite;
 }
 
-/* الكروت */
-.card{
-  background:rgba(255,255,255,0.12);
-  backdrop-filter:blur(12px);
-  padding:20px;
-  border-radius:20px;
-  margin:20px auto;
-  box-shadow:0 0 25px rgba(0,0,0,0.4);
+@keyframes pulse{
+    0%{transform:rotate(-45deg) scale(1);}
+    50%{transform:rotate(-45deg) scale(1.05);}
+    100%{transform:rotate(-45deg) scale(1);}
 }
 
-/* الأزرار */
+.heart:before,
+.heart:after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:250px;
+    background:#b3002d;
+    border-radius:50%;
+}
+
+.heart:before{ top:-140px; left:0; }
+.heart:after{ left:140px; top:0; }
+
+.heart-content{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    transform:rotate(45deg);
+    padding:20px;
+}
+
+input{
+    padding:10px;
+    border:none;
+    border-radius:20px;
+    margin:10px 0;
+    text-align:center;
+    width:80%;
+}
+
 button{
-  background:#ff4d6d;
-  border:none;
-  padding:12px 25px;
-  color:white;
-  border-radius:30px;
-  font-size:16px;
-  cursor:pointer;
-  margin:10px;
-  transition:.3s;
+    padding:10px 25px;
+    border:none;
+    border-radius:20px;
+    background:white;
+    color:#b3002d;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 button:hover{
-  transform:scale(1.05);
+    background:#ffd6e0;
 }
 
-/* الجاليري */
-.gallery{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
+/* الصفحة الرئيسية */
+#mainPage{ display:none; }
+
+.card{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    padding:20px;
+    border-radius:20px;
+    margin:15px 0;
+    width:100%;
+    max-width:600px;
 }
 
-.gallery img{
-  width:48%;
-  border-radius:15px;
-  pointer-events:none;
+/* الصور */
+.photos{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
 }
 
-@media(max-width:600px){
-  .gallery img{width:100%;}
+.photos img{
+    width:100%;
+    max-width:250px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    transition:0.4s;
+}
+
+.photos img:hover{
+    transform:scale(1.05);
 }
 
 /* العداد */
 .counter{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 .time-box{
-  background:rgba(255,255,255,0.15);
-  padding:10px;
-  border-radius:15px;
-  min-width:70px;
-  font-size:18px;
+    background:#ffffff22;
+    padding:15px;
+    border-radius:15px;
+    min-width:70px;
 }
 
-/* 💖 الخلفية القلوب */
-.heart{
-  position:absolute;
-  top:-50px;
-  color:pink;
-  font-size:20px;
-  pointer-events:none;
-  animation:fall 6s linear infinite;
-  opacity:0.8;
-}
-
-@keyframes fall{
-  0%{transform:translateY(0) rotate(0deg);}
-  100%{transform:translateY(100vh) rotate(360deg);}
-}
-
-/* Login heart background */
-#login{
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  height:70vh;
-  border-radius:25px;
-  max-width:400px;
-  margin:60px auto;
-}
-
-/* القلب النابض */
-#login::before{
-  content:"💖";
-  font-size:300px;
-  color:rgba(255,0,0,0.3);
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  pointer-events:none;
-  z-index:0;
-  animation:heartbeat 1.2s infinite;
-}
-
-@keyframes heartbeat{
-  0%,100%{transform:translate(-50%,-50%) scale(1);}
-  25%{transform:translate(-50%,-50%) scale(1.1);}
-  50%{transform:translate(-50%,-50%) scale(1.2);}
-  75%{transform:translate(-50%,-50%) scale(1.1);}
-}
-
-/* الباسورد فوق القلب */
-#login input, #login button, #login p{
-  position:relative;
-  z-index:1;
-  width:80%;
-  max-width:300px;
-  text-align:center;
-  margin-top:10px;
-}
-
-#login input{
-  padding:12px;
-  border-radius:20px;
-  border:none;
-  font-size:16px;
+/* استجابة للموبايل */
+@media(max-width:500px){
+    .heart{
+        width:220px;
+        height:200px;
+    }
+    .heart:before,
+    .heart:after{
+        width:220px;
+        height:200px;
+    }
 }
 </style>
 </head>
-<body oncontextmenu="return false">
 
-<!-- LOGIN -->
-<div id="login">
-<h2>💖 Our Love Story 💖</h2>
-<input type="password" id="pass" placeholder="Enter Password">
-<button onclick="check()">Unlock 💕</button>
-<p id="error"></p>
-</div>
+<body>
 
-<!-- PAGE 1 -->
-<div class="page" id="page1">
-<div class="card">
-<h3>🎵 أغنيتنا</h3>
-<audio autoplay loop controls style="width:100%">
-<source src="song.mp3" type="audio/mpeg">
-</audio>
-</div>
+<div class="heart-bg" id="heartBg"></div>
 
-<div class="card">
-<h3>📸 صورنا</h3>
-<div class="gallery">
-<img src="photo1.jpg" draggable="false">
-<img src="photo2.jpg" draggable="false">
-</div>
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<!-- 🔒 صفحة الباسورد -->
+<div class="page" id="loginPage">
+    <div class="heart">
+        <div class="heart-content">
+            <h3>💖 شهد 💖</h3>
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="checkPassword()">Unlock 💞</button>
+            <p id="error" style="color:yellow;"></p>
+        </div>
+    </div>
 </div>
 
-<button onclick="nextPage(2)">التالي ➜</button>
-</div>
+<!-- 💕 الصفحة الرئيسية -->
+<div class="page" id="mainPage">
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-<div class="card">
-<h3>⏳ بقالنا سوا</h3>
-<div class="counter">
-<div class="time-box"><span id="days"></span><br>يوم</div>
-<div class="time-box"><span id="hours"></span><br>ساعة</div>
-<div class="time-box"><span id="minutes"></span><br>دقيقة</div>
-<div class="time-box"><span id="seconds"></span><br>ثانية</div>
-</div>
-<p>💞 من 26 / 6 / 2025 💞</p>
-</div>
+    <h1>💖 شهد يا أجمل حاجة في حياتي 💖</h1>
 
-<button onclick="prevPage(1)">⬅ رجوع</button>
-<button onclick="nextPage(3)">رسالة لـ شهد 💌</button>
-</div>
+    <div class="card">
+        بحبك من أول يوم شوفتك فيه ❤️  
+        ويا رب نفضل سوا دايماً 💕
+    </div>
 
-<!-- PAGE 3 -->
-<div class="page" id="page3">
-<div class="card">
-<h3>💌 رسالة ليكي يا شهد</h3>
-<p>
-يا أجمل حاجة حصلتلي في الدنيا دي ❤️  
-من أول يوم شوفتك فيه وأنا حبيتك من كل قلبي ✨  
-كل عيد حب واحنا دايمًا سوا  
-كل لحظة بقضيها معاكي بتبقى ذكرى محفورة في قلبي  
-مش هيوصف حبي ليكي كلام  
-تعالي نكمل مع بعض ونعيش كل لحظة سوا ⭐  
-بحبك يا شهد 💕
-</p>
-</div>
+    <div class="card">
+        <h2>📸 ذكرياتنا</h2>
+        <div class="photos">
+            <img src="photo1.jpg">
+            <img src="photo2.jpg">
+        </div>
+    </div>
 
-<button onclick="prevPage(2)">⬅ رجوع</button>
+    <div class="card">
+        <h2>💘 بقالنا مع بعض 💘</h2>
+        <div class="counter">
+            <div class="time-box"><div id="days">0</div> يوم</div>
+            <div class="time-box"><div id="hours">0</div> ساعة</div>
+            <div class="time-box"><div id="minutes">0</div> دقيقة</div>
+            <div class="time-box"><div id="seconds">0</div> ثانية</div>
+        </div>
+        <p>من 26 / 6 / 2025 ❤️</p>
+    </div>
+
 </div>
 
 <script>
-// منع اختصارات النسخ وفتح الكود
-document.addEventListener("keydown",function(e){
-  if(e.ctrlKey && (e.key==="c"||e.key==="u"||e.key==="s")) e.preventDefault();
-  if(e.key==="F12") e.preventDefault();
-});
 
-// تسجيل الدخول
-function check(){
-  if(document.getElementById("pass").value==="2007"){
-    document.getElementById("login").style.display="none";
-    showPage(1);
-  }else{
-    document.getElementById("error").innerHTML="❌ الباسورد غلط";
-  }
+/* باسورد */
+function checkPassword(){
+    let pass = document.getElementById("password").value;
+    if(pass === "2007"){
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("mainPage").style.display="flex";
+        document.getElementById("bgMusic").play();
+    }else{
+        document.getElementById("error").innerText="الباسورد غلط 😢";
+    }
 }
 
-// الانتقال بين الصفحات مع أنيميشن القلوب
-function nextPage(num){spawnHearts(15);showPage(num);}
-function prevPage(num){spawnHearts(15);showPage(num);}
-function showPage(num){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("page"+num).classList.add("active");
-}
+/* عداد */
+const startDate = new Date("June 26, 2025 00:00:00").getTime();
 
-// العداد
-let countDate = new Date(2025,5,26).getTime();
 setInterval(function(){
-  let now=new Date().getTime();
-  let gap=now-countDate;
-  document.getElementById("days").innerHTML=Math.floor(gap/(1000*60*60*24));
-  document.getElementById("hours").innerHTML=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-  document.getElementById("minutes").innerHTML=Math.floor((gap%(1000*60*60))/(1000*60));
-  document.getElementById("seconds").innerHTML=Math.floor((gap%(1000*60))/1000);
+    const now = new Date().getTime();
+    const distance = now - startDate;
+
+    document.getElementById("days").innerHTML =
+        Math.floor(distance/(1000*60*60*24));
+    document.getElementById("hours").innerHTML =
+        Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    document.getElementById("minutes").innerHTML =
+        Math.floor((distance%(1000*60*60))/(1000*60));
+    document.getElementById("seconds").innerHTML =
+        Math.floor((distance%(1000*60))/1000);
 },1000);
 
-// 💖 الخلفية القلوب
-setInterval(()=>{createHeart();},300);
-function createHeart(){
-  let heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="💖";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(Math.random()*30+15)+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
+/* قلوب متحركة */
+function createHearts(){
+    const bg = document.getElementById("heartBg");
+    for(let i=0;i<20;i++){
+        let heart = document.createElement("span");
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"%";
+        heart.style.animationDuration=(5+Math.random()*5)+"s";
+        bg.appendChild(heart);
+    }
 }
+createHearts();
 
-// 💖 أنيميشن القلوب عند الانتقال
-function spawnHearts(count){
-  for(let i=0;i<count;i++){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.top="50%";
-    heart.style.fontSize=(Math.random()*25+15)+"px";
-    heart.style.opacity=1;
-    heart.style.transition="all 1.5s ease-out";
-    document.body.appendChild(heart);
-    setTimeout(()=>{
-      heart.style.top=Math.random()*50+"vh";
-      heart.style.opacity=0;
-    },50);
-    setTimeout(()=>heart.remove(),1600);
-  }
-}
 </script>
 
 </body>
