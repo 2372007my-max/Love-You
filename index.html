@@ -1,183 +1,238 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>شهد ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Shahd ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;}
-body{background:#050010;color:white;overflow-x:hidden;}
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:linear-gradient(135deg,#8b0000,#ff4d6d);
+color:white;
+text-align:center;
+overflow:hidden;
+}
 
-/* ===== Canvas ===== */
-#space{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-3;}
+/* قلوب الخلفية */
+.heart{
+position:fixed;
+top:-10px;
+color:#ffb6c1;
+animation:fall linear infinite;
+z-index:1;
+}
 
-/* ===== إضاءة سينمائية ===== */
-.cinematic-light{position:fixed;width:200%;height:200%;background:radial-gradient(circle at center,rgba(255,0,80,0.25),transparent 60%);animation:lightMove 8s infinite alternate ease-in-out;z-index:-2;}
-@keyframes lightMove{0%{transform:translate(-20%,-20%)}100%{transform:translate(0%,0%)}}
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0;
+}
+}
 
-/* ===== Parallax Layer ===== */
-.parallax{position:fixed;width:120%;height:120%;background:radial-gradient(circle,#ff004c22,#000000);z-index:-1;transition:transform 0.1s;}
+/* Fade In */
+.fade-in{
+animation:fadeIn 1.5s ease forwards;
+opacity:0;
+}
 
-/* ===== الصفحة ===== */
-.page{min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column;padding:20px;text-align:center;}
-#mainPage{display:none;}
-.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);padding:20px;border-radius:20px;margin:15px 0;max-width:650px;width:100%;box-shadow:0 15px 40px rgba(0,0,0,0.5);}
+@keyframes fadeIn{
+to{opacity:1;}
+}
 
-/* ===== قلب الباسورد ثابت واحترافي ===== */
-.heart-wrapper{position:relative;width:260px;height:230px;}
-.heart{position:absolute;width:100%;height:100%;background:linear-gradient(145deg,#ff1744,#b00020);transform:rotate(-45deg);animation:none;}
-.heart:before,.heart:after{content:"";position:absolute;width:100%;height:100%;background:inherit;border-radius:50%;}
-.heart:before{top:-50%;} .heart:after{left:50%;}
-.heart-content{position:absolute;width:100%;height:100%;transform:rotate(45deg);display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.container{
+padding:20px;
+position:relative;
+z-index:2;
+}
 
-/* ===== الظرف ===== */
-.envelope-wrapper{display:flex;justify-content:center;cursor:pointer;}
-.envelope{position:relative;width:300px;height:190px;background:#ff4d6d;border-radius:12px;overflow:hidden;transition:1s;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
-.envelope::after{content:"شهد";position:absolute;bottom:10px;right:15px;font-weight:900;font-size:22px;color:rgba(255,255,255,0.3);text-shadow:1px 1px 2px rgba(0,0,0,0.4);}
-.envelope:before{content:"";position:absolute;width:100%;height:100%;background:#ff1744;clip-path:polygon(0 0,100% 0,50% 60%);transform-origin:top;transition:1s;}
-.letter{position:absolute;width:90%;height:80%;background:white;color:#b00020;top:100%;left:5%;border-radius:10px;padding:15px;font-weight:bold;transition:1s;overflow:hidden;}
-.envelope.open:before{transform:rotateX(180deg);}
-.envelope.open .letter{top:10%;}
+.heart-box{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:20px;
+padding:25px;
+margin:20px auto;
+max-width:500px;
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
 
-/* ===== الصور ===== */
-.photos{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;}
-.photos img{max-width:250px;width:100%;border-radius:20px;}
+button{
+background:#ff3366;
+border:none;
+padding:12px 25px;
+border-radius:30px;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
 
-/* ===== العداد ===== */
-.counter{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-.time-box{background:#ffffff22;padding:10px;border-radius:15px;}
+button:hover{
+background:#ff0033;
+transform:scale(1.05);
+}
 
-/* ===== قلوب الضغط ===== */
-.click-heart{position:absolute;font-size:20px;animation:explode 1s forwards;pointer-events:none;}
-@keyframes explode{0%{transform:scale(1);opacity:1;}100%{transform:translateY(-100px) scale(2);opacity:0;}}
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+width:80%;
+text-align:center;
+margin:10px 0;
+}
 
-/* ===== Inputs و Buttons ===== */
-input{padding:10px;border:none;border-radius:20px;margin:10px 0;text-align:center;}
-button{padding:8px 20px;border:none;border-radius:20px;background:white;color:#b00020;font-weight:bold;cursor:pointer;}
+.hidden{
+display:none;
+}
+
+img,video{
+width:100%;
+border-radius:15px;
+margin-top:10px;
+}
+
+#message{
+min-height:150px;
+white-space:pre-line;
+font-size:18px;
+line-height:1.8;
+}
+
+.counter{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.box{
+background:rgba(255,255,255,0.2);
+padding:10px 15px;
+border-radius:15px;
+}
 </style>
 </head>
 
 <body>
 
-<canvas id="space"></canvas>
-<div class="cinematic-light"></div>
-<div class="parallax" id="parallax"></div>
-<audio id="bgMusic" src="song.mp3" loop></audio>
+<!-- موسيقى تلقائية -->
+<audio id="bgMusic" autoplay loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
 
-<!-- ===== صفحة الباسورد المعدلة ===== -->
-<div class="page" id="loginPage">
-  <div class="heart-wrapper">
-    <div class="heart"></div>
-    <div class="heart-content">
-      <h2 style="margin-bottom:15px;">💖 شهد 💖</h2>
-      <input type="password" id="password" placeholder="Password" style="width:200px;">
-      <button onclick="checkPassword()" style="margin-top:10px;">Unlock 💕</button>
-      <p id="error" style="color:yellow;margin-top:5px;"></p>
-    </div>
-  </div>
+<div class="container">
+
+<div id="lockScreen" class="heart-box fade-in">
+<h2>💖 قصة حبنا يا شهد 💖</h2>
+<p>اكتبي الباسورد يا روح مانو</p>
+<input type="password" id="password" placeholder="Password">
+<br>
+<button onclick="unlock()">Unlock 💕</button>
 </div>
 
-<!-- ===== الصفحة الرئيسية ===== -->
-<div class="page" id="mainPage">
+<div id="mainContent" class="hidden">
 
-<h1>شهد يا أجمل حاجة في حياتي ❤️</h1>
-
-<div class="card">
-  <div class="envelope-wrapper" onclick="openEnvelope()">
-    <div class="envelope" id="envelope">
-      <div class="letter">
-        <p id="typeText"></p>
-      </div>
-    </div>
-  </div>
-  <p style="margin-top:15px;opacity:0.8;">اضغط على الظرف لفتح الرسالة 💌</p>
+<div class="heart-box fade-in">
+<h2>💌 رسالة ليكي يا شهد 💌</h2>
+<div id="message"></div>
 </div>
 
-<div class="card">
-  <div class="photos">
-    <img src="photo1.jpg">
-    <img src="photo2.jpg">
-  </div>
+<div class="heart-box fade-in">
+<h2>📸 صورنا 📸</h2>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
 </div>
 
-<div class="card">
-  <div class="counter">
-    <div class="time-box"><div id="days"></div> يوم</div>
-    <div class="time-box"><div id="hours"></div> ساعة</div>
-    <div class="time-box"><div id="minutes"></div> دقيقة</div>
-    <div class="time-box"><div id="seconds"></div> ثانية</div>
-  </div>
-  <p>من 26 / 6 / 2025 ❤️</p>
+<div class="heart-box fade-in">
+<h2>🎥 فيديو لينا 🎥</h2>
+<video controls>
+<source src="video.mp4" type="video/mp4">
+</video>
 </div>
 
+<div class="heart-box fade-in">
+<h2>⏳ بقالنا مع بعض قد ايه ⏳</h2>
+<div class="counter">
+<div class="box"><span id="days">0</span> يوم</div>
+<div class="box"><span id="hours">0</span> ساعة</div>
+<div class="box"><span id="minutes">0</span> دقيقة</div>
+<div class="box"><span id="seconds">0</span> ثانية</div>
+</div>
+</div>
+
+</div>
 </div>
 
 <script>
 
-/* ===== نجوم + شهب ===== */
-const canvas=document.getElementById("space");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth; canvas.height=innerHeight;
-let stars=[]; for(let i=0;i<200;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2});}
-let meteors=[];
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="white";stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});meteors.forEach((m,index)=>{ctx.strokeStyle="white";ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-50,m.y+10);ctx.stroke();m.x+=5;m.y+=2;if(m.x>canvas.width||m.y>canvas.height)meteors.splice(index,1);});if(Math.random()<0.01){meteors.push({x:Math.random()*canvas.width,y:0});}requestAnimationFrame(draw);}
-draw();
+/* تشغيل الموسيقى حتى لو الموبايل منعها */
+document.addEventListener("click", function(){
+document.getElementById("bgMusic").play();
+},{once:true});
 
-/* Parallax */
-document.addEventListener("mousemove",e=>{
-let x=(e.clientX/window.innerWidth-0.5)*20;
-let y=(e.clientY/window.innerHeight-0.5)*20;
-parallax.style.transform=`translate(${x}px,${y}px)`;
-});
+/* قلوب */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💞";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+heart.style.animationDuration=(3+Math.random()*5)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},8000);
+}
+setInterval(createHeart,300);
 
-/* باسورد */
-function checkPassword(){
-if(password.value==="2007"){loginPage.style.display="none";mainPage.style.display="flex";bgMusic.play();}
-else{error.innerText="الباسورد غلط 😢";}
+/* فتح الباسورد */
+function unlock(){
+let pass=document.getElementById("password").value;
+if(pass==="روح مانو"){
+document.getElementById("lockScreen").style.display="none";
+document.getElementById("mainContent").classList.remove("hidden");
+startTyping();
+}else{
+alert("الباسورد غلط يا جميل 💔");
+}
 }
 
-/* الظرف */
-let opened=false;
-function openEnvelope(){if(opened)return;opened=true;document.getElementById("envelope").classList.add("open");setTimeout(typeWriter,800);}
+/* رسالة بتتكتب */
+const text=`يا شهد ❤️
 
-/* Typewriter - الرسالة الجديدة */
-const message=`يا شهد،
-عارفة إن الكلام ممكن مايعبّرش عن اللي جوايا، بس حبيت أقولك… إنتِ حاجة مختلفة خالص عن أي حد شفته قبل كده. كل مرة بشوفك فيها قلبي بيدق بسرعة، وبحس إن الدنيا كلها بتضحكلي. بحب ضحكتك، وبحس بالراحة وأنا معاكِ، ومفيش يوم بيعدي من غير ما أفكر فيكي.
-إنتِ مش بس جميلة برة… إنتِ جميلة جوه كمان، وكل يوم بكتشف حاجات فيكي بتخليني أحبك أكتر.
-بحبك يا شهد… وبوعدك إني هافضل جنبك مهما حصل. ❤️`;
+من يوم 26/6/2025 وحياتي بقت ليها معنى تاني،
+انتي الأمان، والضحكة، والراحة.
+
+كل لحظة معاكي نعمة بحمد ربنا عليها،
+وبحبك أكتر من أي كلام يتقال.
+
+يا روح مانو،
+خلينا نفضل سوا طول العمر 💖`;
 
 let i=0;
-function typeWriter(){
-  if(i<message.length){
-    typeText.innerHTML+=message.charAt(i);
-    i++;
-    setTimeout(typeWriter,40);
-  }
+function startTyping(){
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i);
+i++;
+setTimeout(startTyping,40);
+}
 }
 
 /* العداد */
-const start=new Date("June 26, 2025 00:00:00").getTime();
-setInterval(()=>{
-let now=new Date().getTime();
-let diff=now-start;
-days.innerHTML=Math.floor(diff/(1000*60*60*24));
-hours.innerHTML=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-minutes.innerHTML=Math.floor((diff%(1000*60*60))/(1000*60));
-seconds.innerHTML=Math.floor((diff%(1000*60))/1000);
-},1000);
+const startDate=new Date("2025-06-26T00:00:00");
 
-/* قلوب الضغط */
-document.addEventListener("click",e=>{
-let heart=document.createElement("div");
-heart.className="click-heart";
-heart.innerHTML="💖";
-heart.style.left=e.pageX+"px";
-heart.style.top=e.pageY+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),1000);
-});
+function updateCounter(){
+const now=new Date();
+const diff=now-startDate;
+
+document.getElementById("days").innerText=Math.floor(diff/(1000*60*60*24));
+document.getElementById("hours").innerText=Math.floor((diff/(1000*60*60))%24);
+document.getElementById("minutes").innerText=Math.floor((diff/(1000*60))%60);
+document.getElementById("seconds").innerText=Math.floor((diff/1000)%60);
+}
+setInterval(updateCounter,1000);
 
 </script>
 
