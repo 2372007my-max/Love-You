@@ -14,7 +14,7 @@ font-family:'Cairo',sans-serif;
 background:linear-gradient(135deg,#8b0000,#ff4d6d);
 color:white;
 text-align:center;
-overflow:hidden;
+overflow-x:hidden; /* يمنع العرضي بس */
 }
 
 /* قلوب الخلفية */
@@ -23,7 +23,8 @@ position:fixed;
 top:-10px;
 color:#ffb6c1;
 animation:fall linear infinite;
-z-index:1;
+z-index:0;
+pointer-events:none;
 }
 
 @keyframes fall{
@@ -113,6 +114,7 @@ margin-top:20px;
 background:rgba(255,255,255,0.2);
 padding:10px 15px;
 border-radius:15px;
+min-width:70px;
 }
 </style>
 </head>
@@ -169,12 +171,12 @@ border-radius:15px;
 
 <script>
 
-/* تشغيل الموسيقى حتى لو الموبايل منعها */
+/* تشغيل الموسيقى لو المتصفح منعها */
 document.addEventListener("click", function(){
 document.getElementById("bgMusic").play();
 },{once:true});
 
-/* قلوب */
+/* قلوب متحركة */
 function createHeart(){
 const heart=document.createElement("div");
 heart.classList.add("heart");
@@ -185,7 +187,7 @@ heart.style.animationDuration=(3+Math.random()*5)+"s";
 document.body.appendChild(heart);
 setTimeout(()=>{heart.remove();},8000);
 }
-setInterval(createHeart,300);
+setInterval(createHeart,400);
 
 /* فتح الباسورد */
 function unlock(){
@@ -199,17 +201,14 @@ alert("الباسورد غلط يا جميل 💔");
 }
 }
 
-/* رسالة بتتكتب */
+/* رسالة */
 const text=`يا شهد ❤️
 
-من يوم 26/6/2025 وحياتي بقت ليها معنى تاني،
-انتي الأمان، والضحكة، والراحة.
+من يوم 26/6/2025 وحياتي بقت أجمل،
+انتي الضحكة اللي بتنور أي يوم صعب.
 
-كل لحظة معاكي نعمة بحمد ربنا عليها،
-وبحبك أكتر من أي كلام يتقال.
-
-يا روح مانو،
-خلينا نفضل سوا طول العمر 💖`;
+بحبك يا روح مانو،
+وعد مني أفضل جنبك طول العمر 💖`;
 
 let i=0;
 function startTyping(){
