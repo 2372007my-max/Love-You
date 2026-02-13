@@ -14,10 +14,10 @@ font-family:'Cairo',sans-serif;
 background:linear-gradient(135deg,#8b0000,#ff4d6d);
 color:white;
 text-align:center;
-overflow-x:hidden; /* يمنع العرضي بس */
+overflow-x:hidden;
+user-select:none; /* منع التحديد */
 }
 
-/* قلوب الخلفية */
 .heart{
 position:fixed;
 top:-10px;
@@ -34,7 +34,6 @@ opacity:0;
 }
 }
 
-/* Fade In */
 .fade-in{
 animation:fadeIn 1.5s ease forwards;
 opacity:0;
@@ -119,9 +118,8 @@ min-width:70px;
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
-<!-- موسيقى تلقائية -->
 <audio id="bgMusic" autoplay loop>
 <source src="song.mp3" type="audio/mpeg">
 </audio>
@@ -171,7 +169,21 @@ min-width:70px;
 
 <script>
 
-/* تشغيل الموسيقى لو المتصفح منعها */
+/* منع النسخ واختصارات الكيبورد */
+document.addEventListener("keydown", function(e){
+if(e.ctrlKey && (e.key === "c" || e.key === "u" || e.key === "s")){
+e.preventDefault();
+}
+if(e.key === "F12"){
+e.preventDefault();
+}
+});
+
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* تشغيل الموسيقى */
 document.addEventListener("click", function(){
 document.getElementById("bgMusic").play();
 },{once:true});
@@ -189,7 +201,6 @@ setTimeout(()=>{heart.remove();},8000);
 }
 setInterval(createHeart,400);
 
-/* فتح الباسورد */
 function unlock(){
 let pass=document.getElementById("password").value;
 if(pass==="روح مانو"){
@@ -201,25 +212,22 @@ alert("الباسورد غلط يا جميل 💔");
 }
 }
 
-/* رسالة */
-const text=`يا شهد ❤️
-
-من يوم 26/6/2025 وحياتي بقت أجمل،
-انتي الضحكة اللي بتنور أي يوم صعب.
-
-بحبك يا روح مانو،
-وعد مني أفضل جنبك طول العمر 💖`;
+const text=`❤️ من يوم 26/6/2025 وحياتي اتغيرت بجد… اليوم ده كان بداية أحلى فصل في عمري.
+وجودك في حياتي خلّى كل حاجة ليها طعم تاني، وضحكتك بقت النور اللي بينوّر أي يوم صعب وأي لحظة زعل.
+في عيد الحب ده حابب أقولك يا روح مانو إنك مش بس حبيبتي… إنتِ أماني وراحتي وسندي.
+بحبك حب أكبر من الكلام، حب بيكبر كل يوم من غير ما يحس.
+وعد مني أفضل جنبك، أفرح لفرحك، وأقف في ضهرك قبل ما تطلبي، ونكمّل سوا المشوار ده طول العمر بإذن الله. 💖
+كل عيد حب وإنتِ أجمل حاجة حصلتلي من يوم 26/6/2025 لحد آخر يوم في حياتي ❤️`;
 
 let i=0;
 function startTyping(){
 if(i<text.length){
 document.getElementById("message").innerHTML+=text.charAt(i);
 i++;
-setTimeout(startTyping,40);
+setTimeout(startTyping,35);
 }
 }
 
-/* العداد */
 const startDate=new Date("2025-06-26T00:00:00");
 
 function updateCounter(){
